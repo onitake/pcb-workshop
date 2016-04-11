@@ -1,0 +1,18 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP HT16K33-20
+D RAM Mapping 8*8 LED Controller Driver with keyscan
+K driver multiplexer i2c
+$ENDCMP
+#
+$CMP HT16K33-24
+D RAM Mapping 12*8 LED Controller Driver with keyscan
+K driver multiplexer i2c
+$ENDCMP
+#
+$CMP HT16K33-28
+D RAM Mapping 16*8 LED Controller Driver with keyscan
+K driver multiplexer i2c
+$ENDCMP
+#
+#End Doc Library
