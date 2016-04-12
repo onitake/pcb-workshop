@@ -15,4 +15,14 @@ D RAM Mapping 16*8 LED Controller Driver with keyscan
 K driver multiplexer i2c
 $ENDCMP
 #
+$CMP LDM-1088AX
+D 8x8 red LED matrix common cathode
+K 8x8 led display cathode
+$ENDCMP
+#
+$CMP LDM-1088BX
+D 8x8 red LED matrix common anode
+K 8x8 led display anode
+$ENDCMP
+#
 #End Doc Library
