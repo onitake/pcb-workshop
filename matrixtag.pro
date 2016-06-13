@@ -1,4 +1,4 @@
-update=Mon 11 Apr 2016 21:53:15 CEST
+update=Sun 12 Jun 2016 22:43:53 CEST
 version=1
 last_client=eeschema
 [pcbnew]
@@ -59,3 +59,13 @@ LibName27=atmel
 LibName28=contrib
 LibName29=valves
 LibName30=nametag
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=Pcbnew
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
