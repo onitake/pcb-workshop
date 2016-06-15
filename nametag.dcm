@@ -1,5 +1,10 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP CSM-88261EG
+D 8x8 red/green LED matrix common anode
+K 8x8 led display anode
+$ENDCMP
+#
 $CMP HT16K33-20
 D RAM Mapping 8*8 LED Controller Driver with keyscan
 K driver multiplexer i2c
