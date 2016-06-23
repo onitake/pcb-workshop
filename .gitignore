@@ -3,3 +3,11 @@
 *.bak
 *.kicad_pcb-bak
 datasheet/*.pdf
+*.bin
+*.hex
+*.elf
+*.lst
+*.map
+*.o
+*.srec
+
