@@ -36,8 +36,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "LED Name Tag"
-Date "2016-04-06"
-Rev "1"
+Date "2016-06-23"
+Rev "2"
 Comp "Chaostreff Basel"
 Comment1 "KiCad Workshop CoSin 2016"
 Comment2 ""
@@ -512,13 +512,13 @@ Wire Wire Line
 	2550 2950 2150 2950
 Wire Wire Line
 	2450 2550 2150 2550
-Text Label 10000 2150 0    60   ~ 0
+Text Label 9100 1450 0    60   ~ 0
 COL1
-Text Label 10000 1950 0    60   ~ 0
+Text Label 9100 1650 0    60   ~ 0
 COL2
-Text Label 9100 1750 0    60   ~ 0
+Text Label 9100 1850 0    60   ~ 0
 COL3
-Text Label 9100 1550 0    60   ~ 0
+Text Label 10000 2050 0    60   ~ 0
 COL4
 Text Label 9100 2850 0    60   ~ 0
 COL5
@@ -528,13 +528,13 @@ Text Label 6400 1950 2    60   ~ 0
 COL7
 Text Label 9100 2450 0    60   ~ 0
 COL8
-Text Label 10000 2050 0    60   ~ 0
+Text Label 9100 1550 0    60   ~ 0
 ROW1
-Text Label 9100 1850 0    60   ~ 0
+Text Label 9100 1750 0    60   ~ 0
 ROW2
-Text Label 9100 1650 0    60   ~ 0
+Text Label 10000 1950 0    60   ~ 0
 ROW3
-Text Label 9100 1450 0    60   ~ 0
+Text Label 10000 2150 0    60   ~ 0
 ROW4
 Text Label 9100 2750 0    60   ~ 0
 ROW5
