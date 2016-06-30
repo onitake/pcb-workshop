@@ -1,5 +1,5 @@
 PRG            = cosin
-OBJ            = cosin.o font.o
+OBJ            = cosin.o sans8x8.o
 OPTIMIZE       = -Os -mcall-prologues
 PROGRAMMER     = usbtiny
 
@@ -11,6 +11,9 @@ LIBS           =
 LFUSE          = 0xe4
 HFUSE          = 0xdf
 EFUSE          = 0xff
+
+sans8x8.c: sans8x8.fnt
+	./fnt2c.pl $< $@
 
 # You should not have to change anything below here.
 

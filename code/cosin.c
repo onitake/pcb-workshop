@@ -23,7 +23,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
-#include "font.h"
 #include "map.h"
 
 // Global state
@@ -38,6 +37,8 @@ struct {
 } global __attribute__((section(".noinit")));
 
 const char MESSAGE[] PROGMEM = "COSIN 2016 ";
+extern const unsigned char FONT_SANS8X8[][8] PROGMEM;
+extern const unsigned char FONTMAP_SANS8X8[] PROGMEM;
 
 // Initalize ports and timers
 void init() {
@@ -60,8 +61,8 @@ void init() {
 
 // Write a letter to the framebuffer
 void wrletter(char letter) {
-	uint8_t index = pgm_read_byte(&FONTMAP[(uint8_t) letter]);
-	memcpy_P(global.fb, FONT[index], 8);
+	uint8_t index = pgm_read_byte(&FONTMAP_SANS8X8[(uint8_t) letter]);
+	memcpy_P(global.fb, FONT_SANS8X8[index], 8);
 }
 
 // Refresh the display (one column at a time)
