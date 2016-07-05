@@ -1,3 +1,4 @@
+FONT           = sans8x8
 PRG            = cosin
 OBJ            = cosin.o sans8x8.o
 OPTIMIZE       = -Os -mcall-prologues
@@ -11,9 +12,6 @@ LIBS           =
 LFUSE          = 0xe4
 HFUSE          = 0xdf
 EFUSE          = 0xff
-
-sans8x8.c: sans8x8.fnt
-	./fnt2c.pl $< $@
 
 # You should not have to change anything below here.
 
@@ -38,6 +36,9 @@ all: $(PRG).elf lst text eeprom
 
 $(PRG).elf: $(OBJ)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+$(FONT).c: $(FONT).fnt
+	./fnt2c.pl $< $@
 
 clean:
 	rm -rf *.o *.elf *.lst *.map $(EXTRA_CLEAN_FILES)
