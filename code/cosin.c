@@ -32,8 +32,10 @@ struct {
 	uint8_t fb[8];
 	// Current column
 	uint8_t col;
-	// Update counter
+	// Letter index
 	uint8_t scene;
+	// Horizontal offset
+	uint8_t offset;
 } global __attribute__((section(".noinit")));
 
 const char MESSAGE[] PROGMEM = "COSIN 2016 ";
@@ -45,6 +47,7 @@ void init() {
 	global.col = 0;
 	memset(global.fb, 0, 8*8);
 	global.scene = 0;
+	global.offset = 0;
 
 	PORTB &= ~0xff;
 	DDRB |= 0xff;
@@ -53,16 +56,36 @@ void init() {
 	PORTA &= ~0x03;
 	DDRA |= 0x03;
 	
-	OCR1A = F_CPU / 1024;
+	OCR1A = F_CPU / 2048;
 	TIMSK |= _BV(TOIE1);
 	TCCR1A = _BV(WGM11) | _BV(WGM10);
 	TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS12) | _BV(CS10);
 }
 
 // Write a letter to the framebuffer
-void wrletter(char letter) {
-	uint8_t index = pgm_read_byte(&FONTMAP_SANS8X8[(uint8_t) letter]);
-	memcpy_P(global.fb, FONT_SANS8X8[index], 8);
+void wrletter(char letter, int8_t xoffset) {
+	uint8_t xstart, xlen;
+	if (xoffset < 0) {
+		if (xoffset >= -8) {
+			xstart = -xoffset;
+			xlen = 8 + xoffset;
+		} else {
+			xstart = 0;
+			xlen = 0;
+		}
+		xoffset = 0;
+	} else if (xoffset >= 0) {
+		if (xoffset < 8) {
+			xlen = 8 - xoffset;
+		} else {
+			xlen = 0;
+		}
+		xstart = 0;
+	}
+	if (xlen > 0) {
+		uint8_t index = pgm_read_byte(&FONTMAP_SANS8X8[(uint8_t) letter]);
+		memcpy_P(global.fb + xoffset, FONT_SANS8X8[index] + xstart, xlen);
+	}
 }
 
 // Refresh the display (one column at a time)
@@ -160,10 +183,24 @@ ISR(TIMER1_OVF_vect) {
 	}
 	global.scene = (global.scene + 1) & 0x3f;
 #else
-	if (++global.scene >= sizeof(MESSAGE) - 1) {
-		global.scene = 0;
+	wrletter(pgm_read_byte(&MESSAGE[global.scene]), -global.offset);
+	uint8_t next;
+	if (global.scene < sizeof(MESSAGE) - 1) {
+		next = global.scene + 1;
+	} else {
+		next = 0;
 	}
-	wrletter(pgm_read_byte(&MESSAGE[global.scene]));
+	wrletter(pgm_read_byte(&MESSAGE[next]), 8 - global.offset);
+	if (global.offset >= 7) {
+		if (global.scene >= sizeof(MESSAGE) - 1) {
+			global.scene = 0;
+		} else {
+			global.scene++;
+		}
+		global.offset = 0;
+	} else {
+		global.offset++;
+	}
 #endif
 }
 
@@ -171,7 +208,7 @@ int main() {
 	init();
 	
 #if 1
-	wrletter(pgm_read_byte(&MESSAGE[0]));
+	wrletter(pgm_read_byte(&MESSAGE[0]), 0);
 	
 	sei();
 	
