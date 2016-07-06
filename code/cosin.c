@@ -56,9 +56,11 @@ void init() {
 	PORTA &= ~0x03;
 	DDRA |= 0x03;
 	
-	OCR1A = F_CPU / 2048;
+	OCR1A = F_CPU / 1024 / 8;
 	TIMSK |= _BV(TOIE1);
+	// Fast PWM, TOP in OCR1A
 	TCCR1A = _BV(WGM11) | _BV(WGM10);
+	// CLKio / 1024
 	TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS12) | _BV(CS10);
 }
 
@@ -185,18 +187,14 @@ ISR(TIMER1_OVF_vect) {
 #else
 	wrletter(pgm_read_byte(&MESSAGE[global.scene]), -global.offset);
 	uint8_t next;
-	if (global.scene < sizeof(MESSAGE) - 1) {
+	if (global.scene < sizeof(MESSAGE) - 2) {
 		next = global.scene + 1;
 	} else {
 		next = 0;
 	}
 	wrletter(pgm_read_byte(&MESSAGE[next]), 8 - global.offset);
 	if (global.offset >= 7) {
-		if (global.scene >= sizeof(MESSAGE) - 1) {
-			global.scene = 0;
-		} else {
-			global.scene++;
-		}
+		global.scene = next;
 		global.offset = 0;
 	} else {
 		global.offset++;
